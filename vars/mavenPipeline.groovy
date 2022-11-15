@@ -15,6 +15,8 @@ def call(body) {
           stage('Compile/Test') {
               steps {
                   script {
+                      echo config.timeout
+                      echo config.mavenVersion
                       mvnBuild.cleanInstall(this)
                   }
               }
