@@ -16,7 +16,6 @@ def call(body) {
 
         stages {
 
-
             stage('Compile/Test/Install') {
                 steps {
                     script {
