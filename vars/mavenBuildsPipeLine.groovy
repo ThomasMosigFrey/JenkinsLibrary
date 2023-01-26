@@ -1,5 +1,5 @@
-import com.jenkins.*;
-import com.jenkins.lib.*;
+import com.jenkins.*
+import com.jenkins.lib.*
 
 
 def call(body) {
