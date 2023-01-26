@@ -8,7 +8,7 @@ public class MavenBuild {
     static final def sonarEnv = 'jenkins';
 
     static def callMaven(def steps, def params) {
-        steps.withSonarQubeEnv(sonarEnv) {
+        //steps.withSonarQubeEnv(sonarEnv) {
             steps.withMaven(maven: mavenVersion) {
                 try {
                     steps.sh 'mvn ' + params
@@ -23,6 +23,6 @@ public class MavenBuild {
                     // do something in any case
                 }
             }
-        }
+        //}
     }
 }
