@@ -20,7 +20,7 @@ def call(body) {
             stage('Compile/Test/Install') {
                 steps {
                     script {
-                        MavenBuild.callMaven("clean install")
+                        com.jenkins.lib.MavenBuild.callMaven("clean install")
                     }
                 }
             }
@@ -28,7 +28,7 @@ def call(body) {
             stage('Code Analysis') {
                 steps {
                     script {
-                        MavenBuild.callMaven("sonar:sonar")
+                        com.jenkins.lib.MavenBuild.callMaven("sonar:sonar")
                     }
                 }
             }
@@ -36,7 +36,7 @@ def call(body) {
             stage('Deploy') {
                 steps {
                     script {
-                        MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
+                        com.jenkins.lib.MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
                     }
                 }
             }
