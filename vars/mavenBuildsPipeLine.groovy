@@ -19,7 +19,7 @@ def call(body) {
             stage('Compile/Test/Install') {
                 steps {
                     script {
-                        MavenBuild.callMaven("clean install")
+                        MavenBuild.callMaven(this, "clean install")
                     }
                 }
             }
@@ -27,7 +27,7 @@ def call(body) {
             stage('Code Analysis') {
                 steps {
                     script {
-                        MavenBuild.callMaven("sonar:sonar")
+                        MavenBuild.callMaven(this, "sonar:sonar")
                     }
                 }
             }
