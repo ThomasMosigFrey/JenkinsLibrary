@@ -1,6 +1,4 @@
-import com.jenkins.*
 import com.jenkins.lib.*
-
 
 def call(body) {
     LinkedHashMap config = [:]

@@ -1,4 +1,4 @@
-package com.jenkins;
+package com.jenkins.lib;
 
 import com.jenkins.lib.CallCounter;
 import hudson.*;
