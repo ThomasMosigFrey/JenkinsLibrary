@@ -8,68 +8,45 @@ def call(body) {
     body.delegate = config
     body()
 
-    lock("eval1") {
+    pipeline {
 
-        pipeline {
+        triggers {
+            cron(config.cron)
+        }
 
-            triggers {
-                cron(config.cron)
+        agent { label config.label }
+
+        stages {
+
+
+            stage('Compile/Test/Install') {
+                steps {
+                    script {
+                        MavenBuild.callMaven("clean install")
+                    }
+                }
             }
 
-            agent { label "unix"}
-
-            environment {
-                MYKEY = "value"
+            stage('Code Analysis') {
+                steps {
+                    script {
+                        MavenBuild.callMaven("sonar:sonar")
+                    }
+                }
             }
 
-            stages {
-
-                stage('Print build Variables') {
-                    steps {
-                        echo currentBuild.buildVariables.MYKEY
+            stage('Deploy') {
+                steps {
+                    script {
+                        MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
                     }
                 }
+            }
 
-                stage('Print previous build Variables') {
-                    when {
-                        not {
-                            equals expected: null, actual: currentBuild.previousBuild
-                        }
-                    }
-                    steps {
-                        echo currentBuild.previousBuild.buildVariables.MYKEY
-                    }
-                }
-
-                stage('Compile/Test/Install') {
-                    steps {
-                        script {
-                            MavenBuild.callMaven("clean install")
-                        }
-                    }
-                }
-
-                stage('Code Analysis') {
-                    steps {
-                        script {
-                            MavenBuild.callMaven("sonar:sonar")
-                        }
-                    }
-                }
-
-                stage('Deploy') {
-                    steps {
-                        script {
-                            MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
-                        }
-                    }
-                }
-
-                stage('Archive artifacts') {
-                    steps {
-                        archiveArtifacts artifacts: '**/*.jar', allowEmptyArchive: true
-                        archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
-                    }
+            stage('Archive artifacts') {
+                steps {
+                    archiveArtifacts artifacts: '**/*.jar', allowEmptyArchive: true
+                    archiveArtifacts artifacts: 'target/surefire-reports/*.xml', allowEmptyArchive: true
                 }
             }
         }
