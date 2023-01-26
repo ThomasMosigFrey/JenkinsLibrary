@@ -1,10 +1,6 @@
 import com.jenkins.*;
+import com.jenkins.lib.*;
 
-def cleanInstall(def steps) {
-    steps.withMaven(maven: 'Maven 3.3.9') {
-        steps.sh 'mvn clean install'
-    }
-}
 
 def call(body) {
     LinkedHashMap config = [:]
@@ -15,10 +11,6 @@ def call(body) {
     lock("eval1") {
 
         pipeline {
-
-            tools {
-                maven 'Maven 3.3.9'
-            }
 
             triggers {
                 cron(config.cron)
@@ -52,34 +44,23 @@ def call(body) {
                 stage('Compile/Test/Install') {
                     steps {
                         script {
-                            cleanInstall(this)
+                            MavenBuild.callMaven("clean install")
                         }
                     }
                 }
 
                 stage('Code Analysis') {
                     steps {
-                        withMaven(maven: 'Maven 3.3.9') {
-                            withSonarQubeEnv('jenkins') {
-                                script {
-                                    try {
-                                        sh 'mvn sonar:sonar'
-                                    } catch (exc) {
-                                        echo 'sonar checks failed: ' + exc.message
-                                        //throw new hudson.AbortException("sonar checks failed: " + exc.message)
-                                    } finally {
-                                        echo 'sonar step finished'
-                                    }
-                                }
-                            }
+                        script {
+                            MavenBuild.callMaven("sonar:sonar")
                         }
                     }
                 }
 
                 stage('Deploy') {
                     steps {
-                        withMaven(maven: 'Maven 3.3.9') {
-                            sh 'echo mvn deploy -Dmaven.test.skip=true'
+                        script {
+                            MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
                         }
                     }
                 }
