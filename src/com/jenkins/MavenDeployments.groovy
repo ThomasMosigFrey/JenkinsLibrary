@@ -5,6 +5,7 @@ import hudson.*;
 
 public class MavenDeployments {
     private script
+
     public MavenDeployments(def script) {
         this.script = script
     }
