@@ -1,7 +1,6 @@
 import com.jenkins.*
 
 def call(body) {
-    def mvnBuild = new MavenBuild()
     LinkedHashMap config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
@@ -35,7 +34,7 @@ def call(body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         script {
-                            mvnBuild.deployToJBoss(steps, config.uatHost, config.uatPort, config.uatCreds)
+                            new MavenDeployments(this).deployToJBoss(config.uatHost, config.uatPort, config.uatCreds)
                         }
                     }
                 }
@@ -45,7 +44,7 @@ def call(body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         script {
-                            mvnBuild.deployToJBoss(steps, config.devHost, config.devPort, config.devCreds)
+                            new MavenDeployments(this).deployToJBoss(config.devHost, config.devPort, config.devCreds)
                         }
                     }
                 }
