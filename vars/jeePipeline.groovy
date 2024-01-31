@@ -19,6 +19,7 @@ def call(body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         sh "mvn clean package"
+                        recordIssues(tools: [mavenConsole()])
                     }
                 }
             }
