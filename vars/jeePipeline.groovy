@@ -8,10 +8,11 @@ def call(body) {
 
     pipeline {
         agent {
-            label 'linux'
+            label config.agentLabels
         }
         options {
             buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')
+            timeout(time: config.timeout, unit: 'MINUTES')
         }
         stages {
             stage ('compile/test') {
