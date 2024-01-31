@@ -33,7 +33,7 @@ def call(body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: 'bde764f8-d98e-411f-9a24-900dccac6d04', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -Dmaven.resources.skip=true -Dmaven.compile.skip=true -Dmaven.testResources.skip=true -Dmaven.testCompile.skip=true -Dmaven.test.skip=true -Ddeploy.jboss.host=10.10.60.55 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
+                            sh "mvn deploy -Dmaven.innstall.skip=true -Dmaven.resources.skip=true -Dmaven.compile.skip=true -Dmaven.testResources.skip=true -Dmaven.testCompile.skip=true -Dmaven.test.skip=true -Ddeploy.jboss.host=10.10.60.55 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
                 }
