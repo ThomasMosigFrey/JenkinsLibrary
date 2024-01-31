@@ -10,6 +10,9 @@ def call(body) {
         agent {
             label 'linux'
         }
+        options {
+            buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '3', daysToKeepStr: '', numToKeepStr: '3')
+        }
         stages {
             stage ('compile/test') {
                 steps {
