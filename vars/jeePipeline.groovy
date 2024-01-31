@@ -34,7 +34,9 @@ def call(body) {
                 when { branch 'master'}
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                        mvnBuild.deployToJBoss(this, config.uatHost, config.uatPort, config.uatCreds)
+                        script {
+                            mvnBuild.deployToJBoss(this, config.uatHost, config.uatPort, config.uatCreds)
+                        }
                     }
                 }
             }
@@ -42,7 +44,9 @@ def call(body) {
                 when { branch 'dev'}
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                        mvnBuild.deployToJBoss(this, config.devHost, config.devPort, config.devCreds)
+                        script {
+                            mvnBuild.deployToJBoss(this, config.devHost, config.devPort, config.devCreds)
+                        }
                     }
                 }
             }
