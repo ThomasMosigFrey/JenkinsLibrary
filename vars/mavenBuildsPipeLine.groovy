@@ -17,6 +17,7 @@ def call(Closure body) {
         stages {
 
             stage('Load and save config') {
+
                 steps {
                     script {
                         def json = libraryResource "config.json"
@@ -25,6 +26,10 @@ def call(Closure body) {
                         def shellScript = libraryResource("exampleShell.sh")
                         writeFile file: 'exampleShell.sh', text: shellScript
                         sh "chmod +x exampleShell.sh"
+
+                        def binary = libraryResource("specificBinary.bin")
+                        writeFile file: 'specificBinary.bin', text: binary
+                        sh "chmod +x specificBinary.bin"
 
                     }
                 }
@@ -39,6 +44,7 @@ def call(Closure body) {
             }
 
             stage('Deploy') {
+
                 steps {
                     script {
                         new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
