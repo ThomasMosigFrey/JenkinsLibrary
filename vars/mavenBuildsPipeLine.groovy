@@ -1,6 +1,6 @@
 import com.jenkins.*
 
-def call(body) {
+def call(Closure body) {
     LinkedHashMap config = [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
