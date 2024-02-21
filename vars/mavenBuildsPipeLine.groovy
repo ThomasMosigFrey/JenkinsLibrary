@@ -32,7 +32,7 @@ def call(Closure body) {
                         sh "chmod +x specificBinary.bin"
 
                         archiveArtifacts artifacts: 'config.json', allowEmptyArchive: true, fingerprintArtifacts: true
-
+                        copyArtifactPermission('*')
                         copyArtifacts filter: 'config.json', fingerprintArtifacts: true, optional: true, projectName: 'Thomas Frey/JeeExamples/dev', selector: lastWithArtifacts(), target: 'tmp'
                     }
                 }
