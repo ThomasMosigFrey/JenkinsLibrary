@@ -19,10 +19,10 @@ def call(Closure body) {
             stage('Load and save config') {
                 steps {
                     script {
-                        def json = libraryResource "/config.json"
+                        def json = libraryResource "config.json"
                         writeFile file: 'config.json', text: json
 
-                        def shellScript = libraryResource("/exampleShell.sh")
+                        def shellScript = libraryResource("exampleShell.sh")
                         writeFile file: 'exampleShell.sh', text: shellScript
                         sh "chmod +x exampleShell.sh"
 
