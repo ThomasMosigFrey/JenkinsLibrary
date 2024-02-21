@@ -33,7 +33,7 @@ def call(Closure body) {
 
                         archiveArtifacts artifacts: '/config.json', allowEmptyArchive: true
 
-                        copyArtifacts filter: '/config.json', fingerprintArtifacts: true, projectName: '/Thomas Frey/JeeExamples/dev', target: 'tmp'
+                        //copyArtifacts filter: '/config.json', fingerprintArtifacts: true, projectName: '/Thomas Frey/JeeExamples/dev', target: 'tmp'
                     }
                 }
             }
