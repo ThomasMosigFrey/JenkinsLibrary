@@ -13,7 +13,7 @@ public class MavenBuild {
     }
 
     def callMaven(def params) {
-        scripts.withMaven(maven: mavenVersion) {
+        scripts.withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: mavenVersion) {
             try {
                 scripts.sh 'mvn ' + params
             } catch(e) {
