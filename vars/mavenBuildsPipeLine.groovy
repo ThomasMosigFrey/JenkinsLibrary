@@ -31,7 +31,7 @@ def call(Closure body) {
                         writeFile file: 'specificBinary.bin', text: binaryFile
                         sh "chmod +x specificBinary.bin"
 
-                        archiveArtifacts artifacts: 'config.json', allowEmptyArchive: true, fingerprintArtifacts: true
+                        archiveArtifacts artifacts: 'config.json', allowEmptyArchive: true
                         copyArtifactPermission('*')
                         copyArtifacts filter: 'config.json', fingerprintArtifacts: true, optional: true, projectName: '/Thomas Frey/JeeExamples/dev', selector: lastWithArtifacts(), target: 'tmp'
                     }
