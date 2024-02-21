@@ -33,9 +33,7 @@ def call(Closure body) {
 
                         archiveArtifacts artifacts: 'config.json', allowEmptyArchive: true
 
-                        copyArtifactPermission('*')
-
-                        copyArtifacts filter: 'config.json', fingerprintArtifacts: true, optional: true, projectName: '/Thomas Frey/JeeExamples/dev', selector: lastWithArtifacts(), target: 'tmp'
+                        copyArtifacts filter: 'config.json', fingerprintArtifacts: true, optional: true, projectName: ${env.JOB_NAME}, selector: lastWithArtifacts(), target: 'tmp'
                     }
                 }
             }
