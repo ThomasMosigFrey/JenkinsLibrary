@@ -33,6 +33,8 @@ def call(Closure body) {
 
                         archiveArtifacts artifacts: 'config.json', allowEmptyArchive: true
 
+                        echo "${env.JOB_NAME} ${env.BUILD_NUMBER}"
+
                         copyArtifacts filter: 'config.json', fingerprintArtifacts: true, projectName: 'Thomas Frey/job/JeeExamples/job/dev', target: 'tmp'
                     }
                 }
