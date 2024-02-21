@@ -16,7 +16,6 @@ def call(Closure body) {
 
         options {
             copyArtifactPermission('*')
-            disableConcurrentBuilds()
         }
 
         stages {
@@ -25,6 +24,7 @@ def call(Closure body) {
 
                 steps {
                     script {
+
                         def json = libraryResource "config.json"
                         writeFile file: 'config.json', text: json
 
@@ -46,7 +46,9 @@ def call(Closure body) {
             stage('Compile/Test/Install') {
                 steps {
                     script {
-                        new MavenBuild(this, 'maven3').callMaven("clean install")
+                        lock(resource: 'NexusDeployments', resourceSelectStrategy: 'sequential', skipIfLocked: true) {
+                            new MavenBuild(this, 'maven3').callMaven("clean install")
+                        }
                     }
                 }
             }
@@ -55,7 +57,9 @@ def call(Closure body) {
 
                 steps {
                     script {
-                        new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
+                        lock(resource: 'JBossDeployments', resourceSelectStrategy: 'sequential', skipIfLocked: true) {
+                            new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
+                        }
                     }
                 }
             }
