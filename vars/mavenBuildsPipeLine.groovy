@@ -54,7 +54,11 @@ def call(Closure body) {
             }
 
             stage('Deploy') {
-
+                input {
+                    message 'Soll ich wirklich jboss deployen?'
+                    ok 'Ja'
+                    submitter 'jenkins'
+                }
                 steps {
                     script {
                         lock(label: 'maven', resourceSelectStrategy: 'sequential') {
