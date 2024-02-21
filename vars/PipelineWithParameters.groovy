@@ -7,9 +7,7 @@ def call(String host = 'linux', String key = 'default', int value = 0) {
         stages {
             stage('Parameters Demo') {
                 steps {
-                    script {
-                        echo "key: ${key}, value: ${value}."
-                    }
+                    echo "key: ${key}, value: ${value}."
                 }
             }
         }
