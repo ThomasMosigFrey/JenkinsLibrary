@@ -46,7 +46,7 @@ def call(Closure body) {
             stage('Compile/Test/Install') {
                 steps {
                     script {
-                        lock(resource: 'NexusDeployments', resourceSelectStrategy: 'sequential', skipIfLocked: false) {
+                        lock(label: 'maven', resourceSelectStrategy: '') {
                             new MavenBuild(this, 'maven3').callMaven("clean install")
                         }
                     }
@@ -57,7 +57,7 @@ def call(Closure body) {
 
                 steps {
                     script {
-                        lock(resource: 'JBossDeployments', resourceSelectStrategy: 'sequential', skipIfLocked: false) {
+                        lock(label: 'maven', resourceSelectStrategy: '') {
                             new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
                         }
                     }
