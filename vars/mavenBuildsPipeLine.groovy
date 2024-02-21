@@ -16,6 +16,7 @@ def call(Closure body) {
 
         options {
             copyArtifactPermission('*')
+            disableConcurrentBuilds()
         }
 
         stages {
