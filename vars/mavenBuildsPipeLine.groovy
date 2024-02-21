@@ -16,6 +16,20 @@ def call(Closure body) {
 
         stages {
 
+            stage('Load and save config') {
+                steps {
+                    script {
+                        def json = libraryResource("/config.json")
+                        writeFile file: 'config.json', text: json
+
+                        def shellScript = libraryResource("/exampleShell.sh")
+                        writeFile file: 'exampleShell.sh', text: shellScript
+                        sh "chmod +x exampleShell.sh"
+
+                    }
+                }
+            }
+
             stage('Compile/Test/Install') {
                 steps {
                     script {
