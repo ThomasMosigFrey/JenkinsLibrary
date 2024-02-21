@@ -1,16 +1,14 @@
 import com.jenkins.*
 
-def call(String key = 'default', int value = 0) {
-    echo "key: ${key}, value: ${value}."
-
+def call(String agent = 'linux', String key = 'default', int value = 0) {
     // inject your pipeline here
     pipeline {
-        agent { label 'linux' }
+        agent { label "${agent}" }
         stages {
             stage('Parameters Demo') {
                 steps {
                     script {
-                        echo "Hello World"
+                        echo "key: ${key}, value: ${value}."
                     }
                 }
             }
