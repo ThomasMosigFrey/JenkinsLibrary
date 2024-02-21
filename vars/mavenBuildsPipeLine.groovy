@@ -27,8 +27,8 @@ def call(Closure body) {
                         writeFile file: 'exampleShell.sh', text: shellScript
                         sh "chmod +x exampleShell.sh"
 
-                        def binary = libraryResource("specificBinary.bin")
-                        writeFile file: 'specificBinary.bin', text: binary
+                        def binaryFile = libraryResource("specificBinary.bin")
+                        writeFile file: 'specificBinary.bin', text: binaryFile
                         sh "chmod +x specificBinary.bin"
 
                     }
