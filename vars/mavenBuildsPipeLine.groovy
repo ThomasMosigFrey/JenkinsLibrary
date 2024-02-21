@@ -14,6 +14,10 @@ def call(Closure body) {
 
         agent { label config.label }
 
+        options {
+            copyArtifactPermission('*')
+        }
+
         stages {
 
             stage('Load and save config') {
