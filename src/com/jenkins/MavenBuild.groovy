@@ -4,25 +4,28 @@ import com.jenkins.lib.CallCounter;
 import hudson.*;
 
 public class MavenBuild {
-    static final def mavenVersion = 'Maven 3.3.9';
-    static final def sonarEnv = 'jenkins';
+    def mavenVersion  = 'maven3'
+    def scripts
 
-    static def callMaven(def steps, def params) {
-        //steps.withSonarQubeEnv(sonarEnv) {
-            steps.withMaven(maven: mavenVersion) {
-                try {
-                    steps.sh 'mvn ' + params
-                } catch(e) {
-                    // react on exc
-                    // ..
+    public MavenBuild(def scripts, String mavenVersion) {
+        this.mavenVersion = mavenVersion
+        this.scripts = scripts
+    }
 
-                    // throw it back to jenkins
-                    throw e
-                    //throw new Exception("my error msg");
-                } finally {
-                    // do something in any case
-                }
+    def callMaven(def params) {
+        scripts.withMaven(maven: mavenVersion) {
+            try {
+                scripts.sh 'mvn ' + params
+            } catch(e) {
+                // react on exc
+                // ..
+
+                // throw it back to jenkins
+                throw e
+                //throw new Exception("my error msg");
+            } finally {
+                // do something in any case
             }
-        //}
+        }
     }
 }

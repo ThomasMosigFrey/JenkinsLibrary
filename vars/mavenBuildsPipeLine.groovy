@@ -19,7 +19,7 @@ def call(Closure body) {
             stage('Compile/Test/Install') {
                 steps {
                     script {
-                        MavenBuild.callMaven(this, "clean install")
+                        new MavenBuild(this, 'maven3').callMaven("clean install")
                     }
                 }
             }
@@ -27,7 +27,7 @@ def call(Closure body) {
             stage('Code Analysis') {
                 steps {
                     script {
-                        MavenBuild.callMaven(this, "sonar:sonar")
+                        new MavenBuild(this, 'maven3').callMaven("sonar:sonar")
                     }
                 }
             }
@@ -35,7 +35,7 @@ def call(Closure body) {
             stage('Deploy') {
                 steps {
                     script {
-                        MavenBuild.callMaven(this, 'deploy -Dmaven.test.skip=true')
+                        new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
                     }
                 }
             }
