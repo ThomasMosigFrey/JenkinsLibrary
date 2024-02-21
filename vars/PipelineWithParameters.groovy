@@ -5,9 +5,9 @@ def call(String key = 'default', int value = 0) {
 
     // inject your pipeline here
     pipeline {
-        agent { label 'Parameters Demo' }
+        agent { label 'linux' }
         stages {
-            stage('Compile/Test') {
+            stage('Parameters Demo') {
                 steps {
                     script {
                         echo "Hello World"

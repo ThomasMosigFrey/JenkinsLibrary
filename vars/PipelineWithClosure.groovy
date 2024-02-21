@@ -10,4 +10,16 @@ def call(Closure body) {
     echo "key: ${config.key}, value: ${config.value}."
 
     // inject your pipeline here
+    pipeline {
+        agent { label 'linux' }
+        stages {
+            stage('Closure Demo') {
+                steps {
+                    script {
+                        echo "Hello World"
+                    }
+                }
+            }
+        }
+    }
 }
