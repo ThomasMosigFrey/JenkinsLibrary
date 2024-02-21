@@ -8,4 +8,16 @@ def call(Closure body) {
     body()
 
     // inject your pipeline here
+    pipeline {
+        agent { label 'Closure Demo' }
+        stages {
+            stage('Compile/Test') {
+                steps {
+                    script {
+                        echo "Hello World"
+                    }
+                }
+            }
+        }
+    }
 }
