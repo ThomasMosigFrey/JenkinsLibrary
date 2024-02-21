@@ -27,7 +27,7 @@ def call(Closure body) {
             stage('Deploy') {
                 steps {
                     script {
-                        new MavenBuild(this, 'maven3').callMaven('install -Dmaven.test.skip=true')
+                        new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
                     }
                 }
             }
