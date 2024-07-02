@@ -48,7 +48,7 @@ def call(Closure body) {
         }
         post {
             always {
-                emailext attachLog: true, body: '', recipientProviders: [contributor()], subject: 'Build ${env.JOB_NAME} endet with status ${env.JOB_STATUS}', to: 'thomas@mosig-frey.de'
+                emailext attachLog: true, body: '', subject: 'Build ${env.JOB_NAME} endet with status ${env.JOB_STATUS}', to: 'thomas@mosig-frey.de'
             }
         }
     }
