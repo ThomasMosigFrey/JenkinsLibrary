@@ -30,7 +30,7 @@ def call(Closure body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: 'bde764f8-d98e-411f-9a24-900dccac6d04', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.63 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
+                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.88 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
                 }
@@ -40,7 +40,7 @@ def call(Closure body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '24dfea8d-7135-4d8b-908f-c0f74088e116', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.63 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
+                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.88 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
                 }
