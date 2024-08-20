@@ -29,7 +29,7 @@ def call(Closure body) {
                 when { branch 'master'}
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                        withCredentials([usernamePassword(credentialsId: 'bde764f8-d98e-411f-9a24-900dccac6d04', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                             sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.59 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
@@ -39,7 +39,7 @@ def call(Closure body) {
                 when { branch 'dev'}
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
-                        withCredentials([usernamePassword(credentialsId: '24dfea8d-7135-4d8b-908f-c0f74088e116', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+                        withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                             sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.59 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
