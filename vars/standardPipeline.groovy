@@ -19,6 +19,8 @@ def call(Closure body) {
           retry(conditions: [agent()], count: 3)
           timeout(time: 1, unit: 'HOURS')
         }
+        
+        parameters { choice(name: 'jboss_server', choices: ['10.10.60.59', '10.10.60.58'], description: 'jboss server to deploy to') }
 
         stages {
             stage ('compile/test') {
@@ -40,7 +42,7 @@ def call(Closure body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.59 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
+                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=${params.jboss_server} -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
                 }
@@ -50,7 +52,7 @@ def call(Closure body) {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=10.10.60.59 -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
+                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=${params.jboss_server} -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
                     }
                 }
