@@ -18,7 +18,6 @@ def call(Closure body) {
           disableConcurrentBuilds abortPrevious: true
           retry(conditions: [agent()], count: 3)
           timeout(time: 1, unit: 'HOURS')
-          timestamps
         }
 
         stages {
