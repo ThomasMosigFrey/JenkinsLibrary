@@ -10,6 +10,9 @@ def call(Closure body) {
         agent {
             label 'linux'
         }
+        environment {
+            NEXUS_HOST = "10.10.60.59"
+        }
         stages {
             stage ('compile/test') {
                 steps {
