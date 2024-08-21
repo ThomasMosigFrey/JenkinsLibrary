@@ -13,6 +13,14 @@ def call(Closure body) {
         environment {
             NEXUS_HOST = "10.10.60.59"
         }
+        options {
+          buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
+          disableConcurrentBuilds abortPrevious: true
+          retry(conditions: [agent()], count: 3)
+          timeout(time: 1, unit: 'HOURS')
+          timestamps
+        }
+
         stages {
             stage ('compile/test') {
                 steps {
