@@ -2,9 +2,7 @@ import com.jenkins.*;
 
 def call(Closure body) {
     LinkedHashMap config = [:]
-    
-    def mvnBuild = new MavenBuild()    
-    
+
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = config
     body()

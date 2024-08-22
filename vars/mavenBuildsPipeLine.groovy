@@ -24,7 +24,6 @@ def call(Closure body) {
 
                 steps {
                     script {
-
                         def json = libraryResource "config.json"
                         writeFile file: 'config.json', text: json
 
@@ -47,7 +46,7 @@ def call(Closure body) {
                 steps {
                     script {
                         lock(label: 'maven', resourceSelectStrategy: 'sequential') {
-                            new MavenBuild(this, 'maven3').callMaven("clean install")
+                            new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f").install()
                         }
                     }
                 }
@@ -62,7 +61,7 @@ def call(Closure body) {
                 steps {
                     script {
                         lock(label: 'maven', resourceSelectStrategy: 'sequential') {
-                            new MavenBuild(this, 'maven3').callMaven('deploy -Dmaven.test.skip=true')
+                            new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f" ).deploy()
                         }
                     }
                 }
