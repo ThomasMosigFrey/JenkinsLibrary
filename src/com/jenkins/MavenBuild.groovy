@@ -23,7 +23,9 @@ public class MavenBuild {
     }
 
     def install(def repositoryAddress) {
-        callMaven( "install -Dmaven.test.skip=true")
+        script.withEnv(['NEXUS_HOST='+repositoryAddress]) {
+            callMaven("install -Dmaven.test.skip=true")
+        }
     }
 
     def deploy(def serverAddress, def credId) {
