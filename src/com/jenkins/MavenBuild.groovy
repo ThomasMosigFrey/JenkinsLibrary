@@ -36,7 +36,7 @@ public class MavenBuild {
 
     def callMaven(def params) {
         this.script.withMaven(globalMavenSettingsConfig: this.settings, maven: this.mavenTool) {
-            this.scripts.sh 'mvn ' + params
+            this.script.sh 'mvn ' + params
         }
     }
 }
