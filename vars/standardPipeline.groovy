@@ -15,10 +15,10 @@ def call(Closure body) {
 
     pipeline {
         agent {
-            label ${config.label}
+            label "${config.label}"
         }
         environment {
-            NEXUS_HOST = ${config.nexusHost}
+            NEXUS_HOST = "${config.nexusHost}"
         }
         options {
           buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
@@ -30,14 +30,14 @@ def call(Closure body) {
         stages {
             stage ('compile/test') {
                 steps {
-                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: ${config.maven}, mavenSettingsConfig: '', traceability: true) {
+                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
                         sh "mvn clean package"
                     }
                 }
             }
             stage('deploy to nexus') {
                 steps {
-                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: ${config.maven}, mavenSettingsConfig: '', traceability: true) {
+                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
                         sh "mvn install -DskipTests"
                     }
                 }
@@ -45,7 +45,7 @@ def call(Closure body) {
             stage('deploy to jboss to uat test system') {
                 when { branch 'master'}
                 steps {
-                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: ${config.maven}, mavenSettingsConfig: '', traceability: true) {
+                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                             sh "mvn deploy -DskipTests -Ddeploy.jboss.host=${config.jbossHost} -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
@@ -55,7 +55,7 @@ def call(Closure body) {
             stage('deploy to jboss to dev test system') {
                 when { branch 'dev'}
                 steps {
-                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: ${config.maven}, mavenSettingsConfig: '', traceability: true) {
+                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                             sh "mvn deploy -DskipTests -Ddeploy.jboss.host=${config.jbossHost} -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
                         }
