@@ -9,7 +9,11 @@ def call(Closure body) {
     if(!config.maven) {
         config.maven = "maven3"
     }
-    if(!config.jbossHost) {
+    if(env.BRANCH_NAME == "dev") {
+        config.jbossHost = "10.10.60.59"
+    } else if (env.BRANCH_NAME == "master") {
+        config.jbossHost = "10.10.60.58"
+    } else {
         config.jbossHost = "10.10.60.59"
     }
 
@@ -42,18 +46,7 @@ def call(Closure body) {
                     }
                 }
             }
-            stage('deploy to jboss to uat test system') {
-                when { branch 'master'}
-                steps {
-                    withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
-                        withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                            sh "mvn deploy -DskipTests -Ddeploy.jboss.host=${config.jbossHost} -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}"
-                        }
-                    }
-                }
-            }
-            stage('deploy to jboss to dev test system') {
-                when { branch 'dev'}
+            stage('deploy to jboss') {
                 steps {
                     withMaven(globalMavenSettingsConfig: 'ae44f8b3-3bf7-4624-8e87-74659f3f817f', maven: "${config.maven}", mavenSettingsConfig: '', traceability: true) {
                         withCredentials([usernamePassword(credentialsId: '1cbbdb5b-fc28-4cd0-8e7b-698a55743423', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
