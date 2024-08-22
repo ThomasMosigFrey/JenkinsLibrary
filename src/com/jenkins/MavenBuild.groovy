@@ -23,7 +23,7 @@ public class MavenBuild {
     }
 
     def install(def repositoryAddress) {
-        script.withEnv(['NEXUS_HOST='+repositoryAddress]) {
+        this.script.withEnv(['NEXUS_HOST='+repositoryAddress]) {
             callMaven("install -Dmaven.test.skip=true")
         }
     }
