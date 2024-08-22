@@ -6,9 +6,14 @@ def call(Closure body) {
     body.delegate = config
     body()
 
+    if(!config.nexusHost) {
+        config.nexusHost = "10.20.60.59"
+    }
+
     if(!config.maven) {
         config.maven = "maven3"
     }
+
     if(env.BRANCH_NAME == "dev") {
         config.jbossHost = "10.10.60.59"
     } else if (env.BRANCH_NAME == "master") {
