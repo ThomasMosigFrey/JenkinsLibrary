@@ -27,10 +27,8 @@ public class MavenBuild {
     }
 
     def deploy(def serverAddress, def credId) {
-        script {
-            withCredentials([usernamePassword(credentialsId: credId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                callMaven("deploy -Dmaven.test.skip=true -Ddeploy.jboss.host="+serverAddress+ " -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${env.USERNAME} -Ddeploy.jboss.password=${env.PASSWORD}")
-            }
+        this.script.withCredentials([this.script.usernamePassword(credentialsId: credId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+            callMaven("deploy -Dmaven.test.skip=true -Ddeploy.jboss.host="+serverAddress+ " -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${env.USERNAME} -Ddeploy.jboss.password=${env.PASSWORD}")
         }
     }
 
