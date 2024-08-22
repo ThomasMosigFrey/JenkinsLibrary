@@ -18,7 +18,7 @@ def call(Closure body) {
             label ${config.label}
         }
         environment {
-            NEXUS_HOST = config.nexusHost
+            NEXUS_HOST = ${config.nexusHost}
         }
         options {
           buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
