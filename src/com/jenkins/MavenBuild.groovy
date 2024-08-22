@@ -26,8 +26,10 @@ public class MavenBuild {
         callMaven( "install -Dmaven.test.skip=true")
     }
 
-    def deploy(def serverAddress) {
-        callMaven("deploy -Dmaven.test.skip=true")
+    def deploy(def serverAddress, def credId) {
+        this.scripts.withCredentials([usernamePassword(credentialsId: credId, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+            callMaven("deploy -Dmaven.test.skip=true -Ddeploy.jboss.host="+serverAddress+ " -Ddeploy.jboss.port=10090 -Ddeploy.jboss.user=${USERNAME} -Ddeploy.jboss.password=${PASSWORD}")
+        }
     }
 
     def callMaven(def params) {
