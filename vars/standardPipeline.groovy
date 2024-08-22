@@ -39,17 +39,23 @@ def call(Closure body) {
         stages {
             stage ('compile/test') {
                 steps {
-                    new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f" ).compile()
+                    script {
+                        new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f").compile()
+                    }
                 }
             }
             stage('deploy to nexus') {
                 steps {
-                    new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f" ).install(config.nexusHost)
+                    script {
+                        new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f").install(config.nexusHost)
+                    }
                 }
             }
             stage('deploy to jboss') {
                 steps {
-                    new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f" ).deploy(config.jbossHost, '1cbbdb5b-fc28-4cd0-8e7b-698a55743423')
+                    script {
+                        new MavenBuild(this, 'maven3', "ae44f8b3-3bf7-4624-8e87-74659f3f817f").deploy(config.jbossHost, '1cbbdb5b-fc28-4cd0-8e7b-698a55743423')
+                    }
                 }
             }
         }
