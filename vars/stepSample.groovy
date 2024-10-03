@@ -1,6 +1,6 @@
 import com.jenkins.*
 
-def call(Closure body, String name) {
-    echo name
+def call(Closure body) {
+    echo body.toString()
     echo "mvn clean package"
 }
