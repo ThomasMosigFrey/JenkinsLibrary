@@ -1,13 +1,7 @@
 import com.jenkins.*
 
-def  name
-
-public stepSample(def name) {
-    this.name = name
-}
-
-def call(Closure body) {
+def call(Closure body, def name) {
     echo body.toString()
-    print this.name
+    print name
     echo "mvn clean package"
 }
