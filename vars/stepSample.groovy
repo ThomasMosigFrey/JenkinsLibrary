@@ -1,10 +1,7 @@
 import com.jenkins.*
 
-def call(String name, Closure body) {
-    echo body.toString()
-    print body.getMaximumNumberOfParameters()
-    echo "mvn clean package"
-    echo name
-    sh "env"
+def call(String username, String password, Closure body) {
+    echo username
+    echo password
     body()
 }
