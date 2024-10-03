@@ -2,6 +2,6 @@ import com.jenkins.*
 
 def call(Closure body, def name) {
     echo body.toString()
-    print name
+    print body.getMaximumNumberOfParameters
     echo "mvn clean package"
 }
