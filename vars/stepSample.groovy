@@ -5,6 +5,6 @@ def call(String name, Closure body) {
     print body.getMaximumNumberOfParameters()
     echo "mvn clean package"
     echo name
-    sh env
+    sh "env"
     body()
 }
